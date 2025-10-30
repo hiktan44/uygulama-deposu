@@ -33,7 +33,7 @@ export default function DashboardPage() {
         if (error) throw error
 
         const tools = favoritesData?.map(f => f.tool).filter(Boolean) || []
-        setFavorites(tools as AITool[])
+        setFavorites(tools as unknown as AITool[])
       } catch (error) {
         console.error('Error loading favorites:', error)
       } finally {
