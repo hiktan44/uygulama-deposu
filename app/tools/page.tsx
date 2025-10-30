@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { supabase, AITool, Category } from '@/lib/supabase'
 import { ToolCard } from '@/components/ToolCard'
 import { Search } from 'lucide-react'
 
-export default function ToolsPage() {
+function ToolsPageContent() {
   const searchParams = useSearchParams()
   const [tools, setTools] = useState<AITool[]>([])
   const [categories, setCategories] = useState<Category[]>([])
@@ -120,5 +120,15 @@ export default function ToolsPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function ToolsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+    </div>}>
+      <ToolsPageContent />
+    </Suspense>
   )
 }
